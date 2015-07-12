@@ -1,0 +1,75 @@
+<template name="masterLayout">
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/mylikes">My Likes</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {{> loginButtons}}
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container">
+    {{> yield}}
+  </div> <!-- /container -->
+</template>
+
+<template name="home">
+  <div class="container">
+    <div class="jumbotron">
+      {{#if currentUser}}
+        <h2>Welcome {{currentUser.profile.name}}!</h2>
+        <p>You're connected, thats really cool.</p>
+        {{#with currentUser.services.soundcloud}}
+        <div class="media">
+          <a class="pull-left" href="#">
+            <img class="media-object" src="{{avatar_url}}" alt="Profile avatar">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><a href="{{permalink_url}}">{{username}}</a></h4>
+            <p>from {{city}}, {{country}}, {{id}}</p>
+          </div>
+        </div>
+        {{/with}}
+      {{else}}
+        <p>Please log in</p>
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="mylikes">
+  <div class="container">
+    <div class="list-group">
+      {{#each likes}}
+      <a class="like-track media list-group-item">
+        <a class="pull-left" href="{{permalink_url}}" target="_blank">
+          <img class="media-object" src="{{artwork_url}}" alt="Coverart" width="100px" height="100px">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading">{{title}}</h4>
+          <p class="description">{{description}}</p>
+        </div>
+      </a>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+
+
+
